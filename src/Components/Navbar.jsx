@@ -1,0 +1,66 @@
+import { Link } from "react-router-dom";
+import { IoPeople } from "react-icons/io5";
+import { GiThreeFriends } from "react-icons/gi";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { LiaUserFriendsSolid } from "react-icons/lia";
+import { MdOutlineBlock } from "react-icons/md";
+const Navbar = () => {
+  return (
+    <div className=" bg-gray-300">
+      <div className=" w-72 p-5 h-screen  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+        <div className=" mb-8">
+          <img src="logo.png" alt="logo" />
+        </div>
+        <ul className=" flex-col text-lg font-bold text-white">
+          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/people"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <IoPeople />
+              <span>People</span>
+            </Link>
+          </li>
+          <li className=" pl-6 pr-12 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/friend"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <GiThreeFriends />
+              Friends
+            </Link>
+          </li>
+          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/group"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <HiMiniUserGroup />
+              Group
+            </Link>
+          </li>
+          <li className=" pl-6 pr-7 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/block"
+              className=" flex gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <MdOutlineBlock />
+              Block List
+            </Link>
+          </li>
+          <li className=" px-6 py-1 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black  w-fit">
+            <Link
+              to="request"
+              className=" flex  gap-4 text-center items-center py-3 px-2 "
+            >
+              <LiaUserFriendsSolid />
+              Friend Requests
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
