@@ -1,7 +1,14 @@
-
+import GroupItem from "./GroupItem";
+import Title from "./Title";
 const Group = () => {
   return (
-    <div>Group</div>
+    <div className="container w-full bg-gray-300">
+      <Title heading="Groups" />
+      <GroupItem/>
+      <GroupItem/>
+      <GroupItem/>
+      <GroupItem/>
+    </div>
   )
 }
 

@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*-------------------------
+     Register css Start 
+----------------------------*/
+.form-container {
+  @apply z-0 w-[500px] h-[600px] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] box-border px-[30px] py-5 rounded-[10px];
+}
+.title {
+  @apply text-start text-[28px] font-extrabold mt-2.5 mb-[30px] mx-0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.form {
+  @apply w-full flex flex-col gap-[18px] mb-[15px];
+}
+.input {
+  @apply border box-border px-[15px] py-3 rounded-[12px] border-solid border-[#c0c0c0];
+  outline: 0 !important;
+}
+.page-link {
+  @apply underline text-end text-[#747474] decoration-[#747474] m-0;
+}
+.page-link-label {
+  @apply cursor-pointer text-[9px] font-bold hover:text-black;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.form-btn {
+  @apply text-[white] cursor-pointer shadow-[#0000003d_0px_3px_8px] px-[15px] py-2.5 rounded-[20px] border-0 active:shadow-none;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  outline: 0 !important;
+  background: teal;
+}
+.sign-up-label {
+  @apply text-[10px] text-[#747474] m-0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.sign-up-link {
+  @apply text-[11px] underline decoration-[teal] text-[teal] cursor-pointer font-extrabold ml-px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.buttons-container {
+  @apply w-full flex flex-col justify-start gap-[15px] mt-5;
+}
+.apple-login-button,
+.google-login-button {
+  @apply box-border shadow-[#00000029_0px_10px_36px_0px,#0000000f_0px_0px_0px_1px] cursor-pointer flex justify-center items-center text-[11px] gap-[5px] px-[15px] py-2.5 rounded-[20px];
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.apple-login-button {
+  @apply bg-black text-white border-2 border-solid border-black;
+}
+.google-login-button {
+  @apply border-2 border-solid border-[#747474];
+}
+.apple-icon,
+.google-icon {
+  @apply text-lg mb-px;
+}
+/*-------------------------
+     Register css Start 
+----------------------------*/
+
+/*-------------------------
+     Sign In css Start 
+----------------------------*/
+
+/*-------------------------
+     Sign In css end
+----------------------------*/

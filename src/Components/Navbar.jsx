@@ -4,14 +4,24 @@ import { GiThreeFriends } from "react-icons/gi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import { MdOutlineBlock } from "react-icons/md";
+import { IoChatboxOutline } from "react-icons/io5";
 const Navbar = () => {
   return (
-    <div className=" bg-gray-300">
-      <div className=" w-72 p-5 h-screen  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+    <div className=" bg-gray-300 mr-[1px]">
+      <div className=" w-72 p-5 h-screen  shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
         <div className=" mb-8">
           <img src="logo.png" alt="logo" />
         </div>
         <ul className=" flex-col text-lg font-bold text-white">
+          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/chat"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <IoChatboxOutline />
+              <span>Chat</span>
+            </Link>
+          </li>
           <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/people"
