@@ -69,9 +69,49 @@
 ----------------------------*/
 
 /*-------------------------
-     Sign In css Start 
+     ChatBox In css Start 
 ----------------------------*/
+.chatBox {
+  @apply w-screen h-screen bg-[#343541] flex flex-col;
+}
+
+.messages-area {
+  @apply bg-[#343541] w-full h-[210px];
+}
+.sender-area {
+  @apply bg-[#343541] w-full h-[70px] flex rounded-lg;
+}
+.message {
+  @apply w-full h-10;
+}
+.message:nth-child(even){
+  @apply bg-[#2E2F3A];
+}
+.message:nth-child(odd){
+  @apply bg-[#343541];
+}
+.send-img {
+  @apply w-[30px];
+}
+.send-input {
+  @apply flex h-10 w-[230px] text-[white] text-ellipsis whitespace-nowrap overflow-hidden ml-[5px] rounded-[7px] border-[none];
+  outline: none;
+  background: none;
+  background: none;
+}
+.send-input::placeholder {
+  @apply text-[#828E9E];
+}
+.input-place {
+  @apply flex flex-row w-full items-center bg-[#40414F] h-10 gap-[5px] border mx-2 mt-[15px] rounded-[7px] border-solid border-[#2E2F3A];
+}
+/* .send {
+  @apply w-[30px] h-[30px] bg-[none] flex items-center justify-center cursor-pointer;
+} */
+.send-icon {
+  @apply w-[17px];
+}
 
 /*-------------------------
-     Sign In css end
+     ChatBox In css end
 ----------------------------*/

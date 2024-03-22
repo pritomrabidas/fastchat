@@ -10,7 +10,7 @@ const SignIn = () => {
           <input type="password" class="input" placeholder="Password" />
           <p class="page-link">
             <span class="page-link-label">
-              <Link to="/forgot">Forgot Password?</Link>
+              <Link to="/forgotnumber">Forgot Password?</Link>
             </span>
           </p>
           <button class="form-btn">Sign In</button>
