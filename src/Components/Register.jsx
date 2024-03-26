@@ -1,25 +1,64 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword ,sendEmailVerification,} from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
-  let [firstName,setFirstName] = useState("") 
-  let [lastName,setLastName] = useState("") 
-  let [email,setEmail] = useState("pritjnkjnom@gmail.com") 
-  let [password,setPassword] = useState("5644555454") 
   const auth = getAuth();
+  const navigate = useNavigate();
+  let [firstName, setFirstName] = useState("");
+  let [lastName, setLastName] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [usererror, setUsererror] = useState({
+    fasterror: "",
+    lasterror: "",
+    emailerror: "",
+    passworderror: "",
+  });
 
-  const handlesubmit = ()=>{
-
-    createUserWithEmailAndPassword(auth, email, password).then(()=>{
-      console.log('singin successfull');
-    })
-    .catch((error)=>{
-      console.log(error.code);
-    })
-  }
-
-
+  const handlesubmit = () => {
+    if (firstName == "") {
+      setUsererror({ fasterror: "Fast name is required" });
+    } else if (lastName == "") {
+      setUsererror({ lasterror: "last name is required" });
+    } else if (email == "") {
+      setUsererror({ emailerror: "Email is required" });
+    } else if (password == "") {
+      setUsererror({ passworderror: "Password is required" });
+    }else{
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          sendEmailVerification(auth.currentUser);
+          toast.success("🦄 Registration successful , Please confirm your verification", {
+            position: "top-center",
+            autoClose: 5000,
+            closeOnClick: true,
+            theme: "light",
+          });
+          setFirstName("")
+          setLastName("")
+          setEmail("")
+          setPassword("")
+          setTimeout(()=>{
+            navigate("/signin")
+          }, 5000)
+        })
+        .catch((error) => {
+          if (error.code.includes("auth/invalid-email")) {
+            setUsererror({ emailerror: "Invaild email" });
+          }
+          if (error.code.includes("auth/email-already-in-use")) {
+            setUsererror({ emailerror: "Email already use Please try another email" });
+          }
+          if (error.code.includes("auth/weak-password")) {
+            setUsererror({
+              passworderror: "Password should be at least 6 characters",
+            });
+          }
+        });
+    }
+  };
 
   return (
     <div className="flex py-4 bg-gray-300">
@@ -35,19 +74,76 @@ const Register = () => {
         </div>
       </div>
       <div className=" w-1/2 ">
+          <ToastContainer/>
         <div className="form-container">
-          <p  className="title">Sign up</p>
+          <p className="title">Sign up</p>
           <div className="form">
             <div className="flex w-fit">
-              <input type="text" className="input mr-4" placeholder="Fast Name" />
-              <input type="text" className="input" placeholder="Last Name" />
+              <div className="">
+                <input
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  type="text"
+                  className="input mr-4"
+                  placeholder="Fast Name"
+                />
+                {usererror.fasterror && (
+                  <p className=" font-extralight text-base text-red-800">
+                    {usererror.fasterror}
+                  </p>
+                )}
+              </div>
+              <div>
+                <input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  type="text"
+                  className="input"
+                  placeholder="Last Name"
+                />
+                {usererror.lasterror && (
+                  <p className=" font-extralight text-base text-red-800">
+                    {usererror.lasterror}
+                  </p>
+                )}
+              </div>
             </div>
-            <input type="email" className="input" placeholder="Email" />
-            <input type="password" className="input" placeholder="Password" />
+            <div>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                className="input w-full"
+                placeholder="Email"
+              />
+              {usererror.emailerror && (
+                <p className=" font-extralight text-base text-red-800">
+                  {usererror.emailerror}
+                </p>
+              )}
+            </div>
+            <div>
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                className="input w-full"
+                placeholder="Password"
+              />
+              {usererror.passworderror && (
+                <p className=" font-extralight text-base text-red-800">
+                  {usererror.passworderror}
+                </p>
+              )}
+            </div>
             <p className="page-link">
-              <span className="page-link-label"><Link to="/forgotnumber">Forgot Password?</Link></span>
+              <span className="page-link-label">
+                <Link to="/forgotnumber">Forgot Password?</Link>
+              </span>
             </p>
-            <button onClick={handlesubmit} className="form-btn">Sign up</button>
+            <button onClick={handlesubmit} className="form-btn">
+              Sign up
+            </button>
           </div>
           <p className="sign-up-label">
             Don't have an account?
@@ -84,9 +180,7 @@ const Register = () => {
                 height="1em"
                 width="1em"
                 xmlns="http://www.w3.org/2000/svg"
-              >
-               
-              </svg>
+              ></svg>
               <span>Log in with Google</span>
             </div>
           </div>
