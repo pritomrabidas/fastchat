@@ -8,7 +8,7 @@ import { IoChatboxOutline } from "react-icons/io5";
 const Navbar = () => {
   return (
     <div className=" bg-gray-300 mr-[1px]">
-      <div className=" w-72 p-5 h-screen  shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
+      <div className=" w-72 p-5 h-screen  ]">
         <div className=" mb-8">
           <img src="logo.png" alt="logo" />
         </div>
