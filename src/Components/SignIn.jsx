@@ -1,33 +1,134 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa6";
 
 const SignIn = () => {
+  const auth = getAuth();
+  const [emailErr, setEmailErr] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [passErr, setPassErr] = useState("");
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleSubmit = () => {
+    if (loginData.email == "") {
+      setEmailErr("Email is required");
+    } else if (loginData.password == "") {
+      setPassErr("password is required");
+    } else {
+      signInWithEmailAndPassword(auth, loginData.email, loginData.password)
+        .then((res) => {
+          console.log("sign in succesful");
+          if (res.user.emailVerified == false) {
+            toast.error("Email varificatin failed", {
+              position: "top-center",
+              autoClose: 5000,
+              closeOnClick: true,
+              theme: "light",
+            });
+          } else {
+            toast.success("🦄 sign in succesful", {
+              position: "top-center",
+              autoClose: 5000,
+              closeOnClick: true,
+              theme: "light",
+            });
+            setTimeout(() => {
+              navigate("/chat");
+            }, 5000);
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+          if (err.code == "auth/invalid-email") {
+            setEmailErr("Invalid email ! Please Input a valid email.");
+          }
+          if (err.code == "auth/invalid-credential") {
+            toast.error("Authrization failed", {
+              position: "top-center",
+              autoClose: 5000,
+              closeOnClick: true,
+              theme: "light",
+            });
+          }
+          if (err.code == "auth/too-many-requests") {
+            toast.error(
+              "To many request ! user temporery block please try again later or reset your password",
+              {
+                position: "top-center",
+                autoClose: 5000,
+                closeOnClick: true,
+                theme: "light",
+              }
+            );
+          }
+        });
+    }
+  };
   return (
     <div className="bg-gray-300 py-2">
-      <div class="form-container justify-center mx-auto  ">
-        <p class="title">Sign In</p>
-        <form class="form">
-          <input type="email" class="input" placeholder="Email" />
-          <input type="password" class="input" placeholder="Password" />
-          <p class="page-link">
-            <span class="page-link-label">
+      <div className="form-container justify-center mx-auto  ">
+        <ToastContainer />
+        <p className="title">Sign In</p>
+        <div className="form">
+          <input
+            onChange={(e) =>
+              setLoginData({ ...loginData, email: e.target.value })
+            }
+            type="email"
+            className="input w-[440px]"
+            placeholder="Email"
+          />
+          {emailErr && (
+            <p className=" font-extralight text-base text-red-800">
+              {emailErr}
+            </p>
+          )}
+          <div className="flex items-center justify-end relative">
+            <div className="">
+              <input
+                onChange={(e) =>
+                  setLoginData({ ...loginData, password: e.target.value })
+                }
+                type={showPass ? "text" : "password"}
+                className="input w-[440px]"
+                placeholder="Password"
+              />
+            </div>
+            <div onClick={()=>setShowPass(!showPass)} className="absolute mr-2 cursor-pointer">
+              {showPass ? <FaEye /> : <FaEyeSlash />}
+            </div>
+          </div>
+          {passErr && (
+            <p className=" font-extralight text-base text-red-800">{passErr}</p>
+          )}
+          <p className="page-link">
+            <span className="page-link-label">
               <Link to="/forgotnumber">Forgot Password?</Link>
             </span>
           </p>
-          <button class="form-btn">Sign In</button>
-        </form>
-        <p class="sign-up-label">
+          <button onClick={handleSubmit} className="form-btn">
+            Sign In
+          </button>
+        </div>
+        <p className="sign-up-label">
           Don't have an account?
-          <span class="sign-up-link">
+          <span className="sign-up-link">
             <Link to="/registration">Sign up</Link>
           </span>
         </p>
-        <div class="buttons-container">
-          <div class="apple-login-button">
+        <div className="buttons-container">
+          <div className="apple-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
               stroke-width="0"
-              class="apple-icon"
+              className="apple-icon"
               viewBox="0 0 1024 1024"
               height="1em"
               width="1em"
@@ -37,7 +138,7 @@ const SignIn = () => {
             </svg>
             <span>Log in with Apple</span>
           </div>
-          <div class="google-login-button">
+          <div className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -45,7 +146,7 @@ const SignIn = () => {
               version="1.1"
               x="0px"
               y="0px"
-              class="google-icon"
+              className="google-icon"
               viewBox="0 0 48 48"
               height="1em"
               width="1em"

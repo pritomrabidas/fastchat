@@ -84,10 +84,10 @@
 .message {
   @apply w-full h-10;
 }
-.message:nth-child(even){
+.message:nth-child(even) {
   @apply bg-[#2E2F3A];
 }
-.message:nth-child(odd){
+.message:nth-child(odd) {
   @apply bg-[#343541];
 }
 .send-img {

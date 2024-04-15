@@ -40,7 +40,7 @@ const Register = () => {
           setLastName("")
           setEmail("")
           setPassword("")
-          setUsererror("")
+          setUsererror('')
           setTimeout(()=>{
             navigate("/signin")
           }, 5000)

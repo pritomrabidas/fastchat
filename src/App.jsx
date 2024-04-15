@@ -1,9 +1,4 @@
-import {
-  createRoutesFromElements,
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Outlet,
+import { createRoutesFromElements,createBrowserRouter,RouterProvider,Route,Outlet,
 } from "react-router-dom";
 import Layout from "./Components/Layout";
 import People from "./Components/pages/People";
