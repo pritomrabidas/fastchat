@@ -8,7 +8,7 @@ import { FaEye } from "react-icons/fa6";
 const SignIn = () => {
   const auth = getAuth();
   const [emailErr, setEmailErr] = useState("");
-  const [showPass, setShowPass] = useState(false);
+  const [showPass, setShowPass] = useState('');
   const [passErr, setPassErr] = useState("");
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({

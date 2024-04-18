@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword ,sendEmailVerification,} from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const auth = getAuth();
   const navigate = useNavigate();
@@ -26,31 +31,40 @@ const Register = () => {
       setUsererror({ emailerror: "Email is required" });
     } else if (password == "") {
       setUsererror({ passworderror: "Password is required" });
-    }else{
+    } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           sendEmailVerification(auth.currentUser);
-          toast.success("🦄 Registration successful , Please confirm your verification", {
-            position: "top-center",
-            autoClose: 5000,
-            closeOnClick: true,
-            theme: "light",
+          updateProfile(auth.currentUser, {
+            displayName: firstName,
+            photoURL: "",
           });
-          setFirstName("")
-          setLastName("")
-          setEmail("")
-          setPassword("")
-          setUsererror('')
-          setTimeout(()=>{
-            navigate("/signin")
-          }, 5000)
+          toast.success(
+            "🦄 Registration successful , Please confirm your verification",
+            {
+              position: "top-center",
+              autoClose: 5000,
+              closeOnClick: true,
+              theme: "light",
+            }
+          );
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPassword("");
+          setUsererror("");
+          setTimeout(() => {
+            navigate("/signin");
+          }, 5000);
         })
         .catch((error) => {
           if (error.code.includes("auth/invalid-email")) {
             setUsererror({ emailerror: "Invaild email" });
           }
           if (error.code.includes("auth/email-already-in-use")) {
-            setUsererror({ emailerror: "Email already use Please try another email" });
+            setUsererror({
+              emailerror: "Email already use Please try another email",
+            });
           }
           if (error.code.includes("auth/weak-password")) {
             setUsererror({
@@ -75,7 +89,7 @@ const Register = () => {
         </div>
       </div>
       <div className=" w-1/2 ">
-          <ToastContainer/>
+        <ToastContainer />
         <div className="form-container">
           <p className="title">Sign up</p>
           <div className="form">
