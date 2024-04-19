@@ -1,17 +1,17 @@
 import { createRoutesFromElements,createBrowserRouter,RouterProvider,Route,Outlet,
 } from "react-router-dom";
 import Layout from "./Components/Layout";
-import People from "./Components/pages/People";
-import Friends from "./Components/pages/Friend";
-import Group from "./Components/pages/Group";
-import FriendRequest from "./Components/pages/Request";
-import BlockList from "./Components/pages/Block";
+import People from "./pages/People";
+import Friends from "./pages/Friend";
+import Group from "./pages/Group";
+import FriendRequest from "./pages/Request";
+import BlockList from "./pages/Block";
 import Register from "./Components/Register";
 import SignIn from "./Components/SignIn";
-import Chat from "./Components/pages/Chat";
+import Chat from "./pages/Chat";
 import ForgotEmail from "./Components/ForgotEmail";
 import ForgotNumber from "./Components/ForgotNumber";
-import ChatBox from "./Components/pages/ChatBox";
+import ChatBox from "./pages/ChatBox";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
