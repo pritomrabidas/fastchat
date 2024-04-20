@@ -4,13 +4,15 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
+import { getDatabase, ref, set } from "firebase/database";
 
 const SignIn = () => {
   const auth = getAuth();
   const [emailErr, setEmailErr] = useState("");
-  const [showPass, setShowPass] = useState('');
+  const [showPass, setShowPass] = useState("");
   const [passErr, setPassErr] = useState("");
   const navigate = useNavigate();
+  const db = getDatabase();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -32,15 +34,22 @@ const SignIn = () => {
               theme: "light",
             });
           } else {
-            toast.success("🦄 sign in succesful", {
-              position: "top-center",
-              autoClose: 5000,
-              closeOnClick: true,
-              theme: "light",
-            });
-            setTimeout(() => {
-              navigate("/chat");
-            }, 5000);
+            set(ref(db, "users/" + res.user.uid), {
+              username: res.user.displayName ,
+              email: res.user.email,
+              profile_picture: res.user.photoURL,
+            }).then(()=>{
+              toast.success("🦄 sign in succesful", {
+                position: "top-center",
+                autoClose: 5000,
+                closeOnClick: true,
+                theme: "light",
+              });
+              
+              setTimeout(() => {
+                navigate("/chat");
+              }, 5000);
+            })
           }
         })
         .catch((err) => {
@@ -100,7 +109,10 @@ const SignIn = () => {
                 placeholder="Password"
               />
             </div>
-            <div onClick={()=>setShowPass(!showPass)} className="absolute mr-2 cursor-pointer">
+            <div
+              onClick={() => setShowPass(!showPass)}
+              className="absolute mr-2 cursor-pointer"
+            >
               {showPass ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>

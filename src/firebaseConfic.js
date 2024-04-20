@@ -1,14 +1,14 @@
-import { initializeApp } from "firebase/app"
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBM7bLwqziUP7Sdr-2aAH8oGTI5TCv6fLE",
-  authDomain: "chatapp-40160.firebaseapp.com",
-  projectId: "chatapp-40160",
-  storageBucket: "chatapp-40160.appspot.com",
-  messagingSenderId: "412938598270",
-  appId: "1:412938598270:web:6eea020571cba1a9f2a52f"
+  apiKey: "AIzaSyCznQP6NC6YaH0fE85_DtCYlWd_27V-yzg",
+  authDomain: "fastchatt-84ef9.firebaseapp.com",
+  projectId: "fastchatt-84ef9",
+  storageBucket: "fastchatt-84ef9.appspot.com",
+  messagingSenderId: "368273810049",
+  appId: "1:368273810049:web:f37bbbd7eb1ae5c827e380",
+  measurementId: "G-W07KDMEL0K"
 };
 
-const app = initializeApp(firebaseConfig);
-
 export default firebaseConfig;
+const app = initializeApp(firebaseConfig);

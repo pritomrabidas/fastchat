@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
-} from "firebase/auth";
+import {getAuth,createUserWithEmailAndPassword,sendEmailVerification,updateProfile,} from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa6";
+
 const Register = () => {
   const auth = getAuth();
   const navigate = useNavigate();
@@ -15,6 +13,7 @@ const Register = () => {
   let [lastName, setLastName] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState("");
   let [usererror, setUsererror] = useState({
     fasterror: "",
     lasterror: "",
@@ -38,24 +37,26 @@ const Register = () => {
           updateProfile(auth.currentUser, {
             displayName: firstName,
             photoURL: "",
-          });
-          toast.success(
-            "🦄 Registration successful , Please confirm your verification",
-            {
-              position: "top-center",
-              autoClose: 5000,
-              closeOnClick: true,
-              theme: "light",
-            }
-          );
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPassword("");
-          setUsererror("");
-          setTimeout(() => {
-            navigate("/signin");
-          }, 5000);
+          }).then(()=>{
+            toast.success(
+              "🦄 Registration successful , Please confirm your verification",
+              {
+                position: "top-center",
+                autoClose: 5000,
+                closeOnClick: true,
+                theme: "light",
+              }
+            );
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setUsererror("");
+            setTimeout(() => {
+              navigate("/signin");
+            }, 5000);
+          })
+          
         })
         .catch((error) => {
           if (error.code.includes("auth/invalid-email")) {
@@ -128,7 +129,7 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                className="input w-full"
+                className="input w-[440px]"
                 placeholder="Email"
               />
               {usererror.emailerror && (
@@ -138,13 +139,21 @@ const Register = () => {
               )}
             </div>
             <div>
+            <div className="flex items-center justify-end relative">
+              <div className="">
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                className="input w-full"
+                type={showPass ? "text" : "Password"}
+                className="input w-[440px]"
                 placeholder="Password"
               />
+              </div>
+              <div onClick={()=>setShowPass(!showPass)}
+              className="absolute mr-2 cursor-pointer">
+                {showPass ? <FaEye/> : <FaEyeSlash/>}
+              </div>
+            </div>
               {usererror.passworderror && (
                 <p className=" font-extralight text-base text-red-800">
                   {usererror.passworderror}
