@@ -35,7 +35,7 @@ const Register = () => {
         .then(() => {
           sendEmailVerification(auth.currentUser);
           updateProfile(auth.currentUser, {
-            displayName: firstName,
+            displayName: firstName + " " + lastName,
             photoURL: "",
           }).then(()=>{
             toast.success(

@@ -12,6 +12,7 @@ import Chat from "./pages/Chat";
 import ForgotEmail from "./Components/ForgotEmail";
 import ForgotNumber from "./Components/ForgotNumber";
 import ChatBox from "./pages/ChatBox";
+import User from "./pages/user";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +22,7 @@ function App() {
         <Route path="forgotnumber" element={<ForgotNumber />}></Route>
         <Route path="forgotemail" element={<ForgotEmail />}></Route>
         <Route path="/" element={<Layout />}>
+          <Route path="/user" element={<User />}></Route>
           <Route path="/chat" element={<ChatBox />}></Route>
           <Route path="/people" element={<People />}></Route>
           <Route path="/friend" element={<Friends />}></Route>

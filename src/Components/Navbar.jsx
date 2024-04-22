@@ -15,6 +15,24 @@ const Navbar = () => {
         <ul className=" flex-col text-lg font-bold text-white">
           <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
+              to="/user"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <IoChatboxOutline />
+              <span>User</span>
+            </Link>
+          </li>
+          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
+              to="/chat"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <IoChatboxOutline />
+              <span>Chat</span>
+            </Link>
+          </li>
+          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
               to="/chat"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
             >

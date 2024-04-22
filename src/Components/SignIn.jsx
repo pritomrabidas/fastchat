@@ -35,21 +35,22 @@ const SignIn = () => {
             });
           } else {
             set(ref(db, "users/" + res.user.uid), {
-              username: res.user.displayName ,
+              username: res.user.displayName,
               email: res.user.email,
               profile_picture: res.user.photoURL,
-            }).then(()=>{
+            }).then(() => {
               toast.success("🦄 sign in succesful", {
                 position: "top-center",
                 autoClose: 5000,
                 closeOnClick: true,
                 theme: "light",
               });
-              
+              localStorage.setItem("user", JSON.stringify(res.user));
+              // disptch(loggeducer(res.user))
               setTimeout(() => {
                 navigate("/chat");
               }, 5000);
-            })
+            });
           }
         })
         .catch((err) => {

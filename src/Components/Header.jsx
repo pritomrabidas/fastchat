@@ -1,8 +1,12 @@
+// alert(hello)
+// const Header = () => {
+//   return (
+//     <>
+//     <div>Header</div>
+//     <h1>hello</h1>
+//     </>
+    
+//   )
+// }
 
-const Header = () => {
-  return (
-    <div>Header</div>
-  )
-}
-
-export default Header
+// export default Header
