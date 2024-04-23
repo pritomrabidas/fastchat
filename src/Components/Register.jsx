@@ -7,6 +7,7 @@ import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
 
 const Register = () => {
+  // let re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const auth = getAuth();
   const navigate = useNavigate();
   let [firstName, setFirstName] = useState("");
@@ -22,6 +23,11 @@ const Register = () => {
   });
 
   const handlesubmit = () => {
+    // if (re.test(password)) {
+    //   console.log(true);
+    // }else{
+    //   console.log(false);
+    // }
     if (firstName == "") {
       setUsererror({ fasterror: "Fast name is required" });
     } else if (lastName == "") {
@@ -30,6 +36,8 @@ const Register = () => {
       setUsererror({ emailerror: "Email is required" });
     } else if (password == "") {
       setUsererror({ passworderror: "Password is required" });
+    // } else if (re.test(password)) {
+    //   setUsererror({ passworderror: "Enter a strong password" });
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
@@ -170,7 +178,7 @@ const Register = () => {
             </button>
           </div>
           <p className="sign-up-label">
-            Don't have an account?
+            do not have an account?
             <span className="sign-up-link">
               <Link to="/signin">Sign In</Link>
             </span>

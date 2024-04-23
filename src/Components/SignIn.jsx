@@ -130,7 +130,7 @@ const SignIn = () => {
           </button>
         </div>
         <p className="sign-up-label">
-          Don't have an account?
+          Do not have an account?
           <span className="sign-up-link">
             <Link to="/registration">Sign up</Link>
           </span>
@@ -140,7 +140,6 @@ const SignIn = () => {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
               className="apple-icon"
               viewBox="0 0 1024 1024"
               height="1em"
@@ -155,7 +154,6 @@ const SignIn = () => {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
               version="1.1"
               x="0px"
               y="0px"
