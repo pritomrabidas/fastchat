@@ -3,8 +3,13 @@ import Title from "./Title";
 const Friends = () => {
   return (
     <>
-    <div className="container w-full bg-gray-300">
+    <div className="w-full h-screen overflow-scroll bg-gray-300">
       <Title heading="Friends" />
+      <FriendItem/> 
+      <FriendItem/> 
+      <FriendItem/> 
+      <FriendItem/> 
+      <FriendItem/> 
       <FriendItem/> 
       <FriendItem/> 
       <FriendItem/> 

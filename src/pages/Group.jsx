@@ -2,7 +2,7 @@ import GroupItem from "./GroupItem";
 import Title from "./Title";
 const Group = () => {
   return (
-    <div className="container w-full bg-gray-300">
+    <div className=" h-screen overflow-scroll w-full bg-gray-300">
       <Title heading="Groups" />
       <GroupItem/>
       <GroupItem/>

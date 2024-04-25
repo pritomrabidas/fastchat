@@ -7,13 +7,13 @@ import { MdOutlineBlock } from "react-icons/md";
 import { IoChatboxOutline } from "react-icons/io5";
 const Navbar = () => {
   return (
-    <div className=" bg-gray-300 mr-[1px]">
-      <div className=" w-72 p-5 h-full ]">
+    <div className=" bg-gray-300 overflow-scroll mr-[1px] h-screen">
+      <div className=" w-[400px] p-5 ]">
         <div className=" mb-8">
           <img src="logo.png" alt="logo" />
         </div>
         <ul className=" flex-col text-lg font-bold text-white">
-          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-14 py-1 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/user"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
@@ -22,7 +22,7 @@ const Navbar = () => {
               <span>User</span>
             </Link>
           </li>
-          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-14 py-1 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/chat"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
@@ -31,7 +31,7 @@ const Navbar = () => {
               <span>Chat</span>
             </Link>
           </li>
-          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-14 py-1 bg-slate-800 rounded-lg transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/people"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
@@ -40,7 +40,7 @@ const Navbar = () => {
               <span>People</span>
             </Link>
           </li>
-          <li className=" pl-6 pr-12 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-12 py-1 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/friend"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
@@ -49,7 +49,7 @@ const Navbar = () => {
               Friends
             </Link>
           </li>
-          <li className=" pl-6 pr-14 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-14 py-1 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/group"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
@@ -58,7 +58,7 @@ const Navbar = () => {
               Group
             </Link>
           </li>
-          <li className=" pl-6 pr-7 py-2 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+          <li className=" pl-6 pr-7 py-1 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
               to="/block"
               className=" flex gap-4 text-center items-center py-3 px-2 w-fit"

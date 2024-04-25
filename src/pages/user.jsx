@@ -1,5 +1,3 @@
-import { FaLocationDot } from "react-icons/fa6";
-import { MdOutlineLocalPhone } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { MdMarkEmailRead } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -26,14 +24,6 @@ const User = () => {
           <div className="flex items-center mt-4 text-gray-700">
             <MdMarkEmailRead/>
             <h1 className="px-2 text-sm">Email</h1>
-          </div>
-          <div className="flex items-center mt-4 text-gray-700">
-            <MdOutlineLocalPhone/>
-            <h1 className="px-2 text-sm">Phone</h1>
-          </div>
-          <div className="flex items-center mt-4 text-gray-700">
-            <FaLocationDot/>
-            <h1 className="px-2 text-sm">Address</h1>
           </div>
         </div>
       </div>

@@ -5,9 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
 import { getDatabase, ref, set } from "firebase/database";
+import { useDispatch } from "react-redux";
+import { loggeducer } from "../slice/userSlice";
 
 const SignIn = () => {
   const auth = getAuth();
+  const disptch = useDispatch()
   const [emailErr, setEmailErr] = useState("");
   const [showPass, setShowPass] = useState("");
   const [passErr, setPassErr] = useState("");
@@ -25,7 +28,6 @@ const SignIn = () => {
     } else {
       signInWithEmailAndPassword(auth, loginData.email, loginData.password)
         .then((res) => {
-          console.log("sign in succesful");
           if (res.user.emailVerified == false) {
             toast.error("Email varificatin failed", {
               position: "top-center",
@@ -46,7 +48,7 @@ const SignIn = () => {
                 theme: "light",
               });
               localStorage.setItem("user", JSON.stringify(res.user));
-              // disptch(loggeducer(res.user))
+              disptch(loggeducer(res.user))
               setTimeout(() => {
                 navigate("/chat");
               }, 5000);
@@ -54,7 +56,6 @@ const SignIn = () => {
           }
         })
         .catch((err) => {
-          console.log(err.message);
           if (err.code == "auth/invalid-email") {
             setEmailErr("Invalid email ! Please Input a valid email.");
           }

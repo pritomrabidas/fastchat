@@ -3,7 +3,7 @@ const Chat = () => {
   const userfromlocal = JSON.parse(localStorage.getItem('user'))
   console.log(userfromlocal);
   return (
-    <div className="container w-full">
+    <div className=" h-screen overflow-scroll w-full">
       <Title heading="Chats" />
     </div>
   )
