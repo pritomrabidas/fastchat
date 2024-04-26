@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEyeSlash } from "react-icons/fa6";
@@ -50,7 +51,7 @@ const SignIn = () => {
               localStorage.setItem("user", JSON.stringify(res.user));
               disptch(loggeducer(res.user))
               setTimeout(() => {
-                navigate("/chat");
+                navigate("/user");
               }, 5000);
             });
           }
@@ -81,9 +82,22 @@ const SignIn = () => {
         });
     }
   };
+
+  const provider = new GoogleAuthProvider();
+  const HandleGogle =()=>{
+signInWithPopup(auth, provider)
+  .then((result) => {
+     GoogleAuthProvider.credentialFromResult(result);
+    const user = result.user;
+    console.log(user);
+  }).catch((error) => {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+  });
+  }
   return (
-    <div className="bg-gray-300 py-2">
-      <div className="form-container justify-center mx-auto  ">
+    <div className="bg-gray-300 py-2 h-screen pt-12">
+      <div className="form-container w-[600px] justify-center mx-auto  ">
         <ToastContainer />
         <p className="title">Sign In</p>
         <div className="form">
@@ -151,7 +165,7 @@ const SignIn = () => {
             </svg>
             <span>Log in with Apple</span>
           </div>
-          <div className="google-login-button">
+          <button onClick={HandleGogle} className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -187,7 +201,7 @@ const SignIn = () => {
               ></path>
             </svg>
             <span>Log in with Google</span>
-          </div>
+          </button>
         </div>
       </div>
     </div>

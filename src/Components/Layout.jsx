@@ -7,8 +7,7 @@ import { useEffect } from "react"
 const Layout = () => {
 
   const navigate = useNavigate()
-  const user = useSelector((state)=> state)
-  console.log(user);
+  const user = useSelector((state)=> state.userSlice.user)
 
   useEffect(()=>{
     if (!user) {

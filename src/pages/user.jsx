@@ -5,12 +5,11 @@ import { useSelector } from "react-redux";
 const User = () => {
   const user = useSelector((state)=> state.userSlice.user)
   return (
-
-    <div className=" mx-auto w-72">
-      <div className="justify-center shadow-lg rounded-lg overflow-hidden my-20">
+    <div className=" mx-auto w-80">
+      <div className="justify-center shadow-xl rounded-lg overflow-hidden my-20">
         <img
-          className="w-full h-40  object-cover object-center"
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+          className="w-full h-56  object-cover object-center"
+          src="pritom101.jpg"
           alt="avatar"
         />
         <div className="flex items-center px-6 py-3 bg-gray-900">
@@ -23,7 +22,7 @@ const User = () => {
           </div>
           <div className="flex items-center mt-4 text-gray-700">
             <MdMarkEmailRead/>
-            <h1 className="px-2 text-sm">Email</h1>
+            <h1 className="px-2 text-sm">{user.email}</h1>
           </div>
         </div>
       </div>
