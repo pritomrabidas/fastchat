@@ -4,12 +4,16 @@ import { useSelector } from "react-redux";
 
 const User = () => {
   const user = useSelector((state)=> state.userSlice.user)
+  console.log(user);
   return (
     <div className=" mx-auto w-80">
       <div className="justify-center shadow-xl rounded-lg overflow-hidden my-20">
+        <div className=" py-3 px-4">
+          <input type="file" accept="image/*" />
+        </div>
         <img
           className="w-full h-56  object-cover object-center"
-          src="pritom101.jpg"
+          src={user.photoURL}
           alt="avatar"
         />
         <div className="flex items-center px-6 py-3 bg-gray-900">

@@ -11,7 +11,7 @@ import { loggeducer } from "../slice/userSlice";
 
 const SignIn = () => {
   const auth = getAuth();
-  const disptch = useDispatch()
+  const disptch = useDispatch();
   const [emailErr, setEmailErr] = useState("");
   const [showPass, setShowPass] = useState("");
   const [passErr, setPassErr] = useState("");
@@ -49,7 +49,7 @@ const SignIn = () => {
                 theme: "light",
               });
               localStorage.setItem("user", JSON.stringify(res.user));
-              disptch(loggeducer(res.user))
+              disptch(loggeducer(res.user));
               setTimeout(() => {
                 navigate("/user");
               }, 5000);
@@ -84,17 +84,37 @@ const SignIn = () => {
   };
 
   const provider = new GoogleAuthProvider();
-  const HandleGogle =()=>{
-signInWithPopup(auth, provider)
-  .then((result) => {
-     GoogleAuthProvider.credentialFromResult(result);
-    const user = result.user;
-    console.log(user);
-  }).catch((error) => {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  });
-  }
+  const HandleGogle = () => {
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        GoogleAuthProvider.credentialFromResult(res);
+        set(ref(db, "users/" + res.user.uid), {
+          username: res.user.displayName,
+          email: res.user.email,
+          profile_picture: res.user.photoURL,
+        }).then(() => {
+          console.log(res);
+          toast.success("🦄 sign in succesful", {
+            position: "top-center",
+            autoClose: 5000,
+            closeOnClick: true,
+            theme: "light",
+          });
+          localStorage.setItem("user", JSON.stringify(res.user));
+          disptch(loggeducer(res.user));
+          setTimeout(() => {
+            navigate("/user");
+          }, 1500);
+        })
+        .catch((err)=>{
+          console.log(err);
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <div className="bg-gray-300 py-2 h-screen pt-12">
       <div className="form-container w-[600px] justify-center mx-auto  ">
