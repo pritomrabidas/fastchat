@@ -6,6 +6,10 @@ import { useState, createRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { GiSplitCross } from "react-icons/gi";
+import { getStorage, ref, uploadString } from "firebase/storage";
+import { getDownloadURL } from "firebase/storage";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { getDatabase, ref as dref, set } from "firebase/database";
 
 const User = () => {
   const user = useSelector((state) => state.userSlice.user);
@@ -13,6 +17,10 @@ const User = () => {
   const [cropData, setCropData] = useState("");
   const [enableEdit, setEnableEdit] = useState(false);
   const cropperRef = createRef();
+  const storage = getStorage();
+  const auth = getAuth();
+  const db = getDatabase();
+
   const onChange = (e) => {
     e.preventDefault();
     let files;
@@ -32,11 +40,34 @@ const User = () => {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
     }
   };
-  const HandleClose =()=>{
-    setEnableEdit(false)
-    setCropData("")
-    setImage("")
-  }
+  const HandleClose = () => {
+    setEnableEdit(false);
+    setCropData("");
+    setImage("");
+  };
+  const HandleUpload = () => {
+    if (cropData) {
+      const storageRef = ref(storage, user?.uid);
+      uploadString(storageRef, cropData, "data_url").then(() => {
+        getDownloadURL(storageRef).then((downloadURL) => {
+          onAuthStateChanged(auth, () => {
+            updateProfile(auth.currentUser, {
+              profile_picture: downloadURL,
+            }).then(() => {
+              set(dref(db, "users/" + user.uid), {
+                email: user.email,
+                profile_picture: downloadURL,
+                username: user.displayName,
+              });
+              setEnableEdit(false);
+              setCropData("");
+              setImage("");
+            });
+          });
+        });
+      });
+    }
+  };
   return (
     <div className="flex overflow-scroll gap-5 w-full pt-10 relative">
       <div className=" w-[400px] h-[430px]">
@@ -44,7 +75,7 @@ const User = () => {
           <div className=" py-3 px-4"></div>
           <img
             className="w-full h-56  object-cover object-center"
-            src={cropData ? cropData : user?.photoURL}
+            src={user?.photoURL}
             alt="avatar"
           />
           <div className="flex items-center justify-between px-6 py-3 bg-gray-900">
@@ -52,18 +83,16 @@ const User = () => {
               {user.displayName}
             </h1>
             <>
-              <div
-                onClick={() => setEnableEdit(true)}
-                className="hs-dropdown relative inline-flex"
-              >
+              <div className="hs-dropdown relative inline-flex">
                 <button className="hs-dropdown-toggle flex justify-center items-center size-9 text-sm font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
                   <BsThreeDotsVertical className="text-black" />
                 </button>
                 <div className="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden bg-black shadow-md rounded-lg p-2 mt-2">
                   <p
+                    onClick={() => setEnableEdit(true)}
                     className="flex items-center gap-x-3.5 py-2 px-2 ab rounded-lg text-sm text-gray-100 hover:bg-gray-900 focus:inline-none focus:bg-gray-100"
                     href="#"
-                  >
+                    >
                     Edit Profile
                   </p>
                 </div>
@@ -86,7 +115,10 @@ const User = () => {
         <div className=" w-96 h-96">
           {enableEdit && (
             <>
-              <input type="file" onChange={onChange} />
+              <label htmlFor="Profile" className=" bg-gray-600 px-4 py-2 text-white rounded-md">
+                Chose your Profile Picture
+              <input type="file" id="Profile" className="hidden" onChange={onChange} />
+              </label>
               {image && (
                 <div className=" absolute left-0 top-0 w-full h-screen bg-[rgba(0,0,0,1)] border rounded flex">
                   <div className=" w-[800px] h-[450px] pt-24">
@@ -106,18 +138,27 @@ const User = () => {
                       checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
                       guides={true}
                     />
-                    <div className="flex">
-                      <button className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3">
+                    <div className="flex w-60 justify-center mx-auto">
+                      {
+                        cropData &&
+                        <button
+                        onClick={HandleUpload}
+                        className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
+                      >
                         Save
                       </button>
+                      }
                       <button
                         className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
                         onClick={getCropData}
                       >
                         Crop
                       </button>
-                      <button onClick={HandleClose} className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3">
-                        <GiSplitCross/>
+                      <button
+                        onClick={HandleClose}
+                        className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
+                      >
+                        <GiSplitCross />
                       </button>
                     </div>
                   </div>

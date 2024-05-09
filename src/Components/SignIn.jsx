@@ -93,7 +93,6 @@ const SignIn = () => {
           email: res.user.email,
           profile_picture: res.user.photoURL,
         }).then(() => {
-          console.log(res);
           toast.success("🦄 sign in succesful", {
             position: "top-center",
             autoClose: 5000,
