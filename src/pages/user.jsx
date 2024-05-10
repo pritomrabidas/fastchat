@@ -75,7 +75,7 @@ const User = () => {
           <div className=" py-3 px-4"></div>
           <img
             className="w-full h-56  object-cover object-center"
-            src={user?.photoURL}
+            src={user.photoURL}
             alt="avatar"
           />
           <div className="flex items-center justify-between px-6 py-3 bg-gray-900">

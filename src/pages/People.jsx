@@ -23,7 +23,6 @@ const People = () => {
       }); 
     });
   },[]);
-  console.log(userlist);
   return (
     <div className="w-full h-screen overflow-scroll flex flex-col bg-gray-300 ">
       <Title heading="People" />

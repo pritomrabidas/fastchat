@@ -28,8 +28,8 @@ const SignIn = () => {
       setPassErr("password is required");
     } else {
       signInWithEmailAndPassword(auth, loginData.email, loginData.password)
-        .then((res) => {
-          if (res.user.emailVerified == false) {
+      .then((res) => {
+        if (res.user.emailVerified == false) {
             toast.error("Email varificatin failed", {
               position: "top-center",
               autoClose: 5000,

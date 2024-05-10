@@ -44,7 +44,7 @@ const Register = () => {
           sendEmailVerification(auth.currentUser);
           updateProfile(auth.currentUser, {
             displayName: firstName + " " + lastName,
-            photoURL: "pritom101.jpg",
+            photoURL: " ",
           }).then(()=>{
             toast.success(
               "🦄 Registration successful , Please confirm your verification",
