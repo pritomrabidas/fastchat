@@ -10,10 +10,13 @@ import { getStorage, ref, uploadString } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { getDatabase, ref as dref, set } from "firebase/database";
+// import { useDispatch } from "react-redux";
+// import { loggeducer } from "../slice/userSlice";
 
 const User = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [image, setImage] = useState("");
+  // const disptch = useDispatch();
   const [cropData, setCropData] = useState("");
   const [enableEdit, setEnableEdit] = useState(false);
   const cropperRef = createRef();
@@ -59,6 +62,8 @@ const User = () => {
                 profile_picture: downloadURL,
                 username: user.displayName,
               });
+              // localStorage.setItem("user", JSON.stringify(auth.currentUser));
+              // disptch(loggeducer(auth.currentUser));
               setEnableEdit(false);
               setCropData("");
               setImage("");
@@ -75,12 +80,12 @@ const User = () => {
           <div className=" py-3 px-4"></div>
           <img
             className="w-full h-56  object-cover object-center"
-            src={user.photoURL}
+            src={user?.photoURL}
             alt="avatar"
           />
           <div className="flex items-center justify-between px-6 py-3 bg-gray-900">
             <h1 className="mx-3 text-white font-semibold text-lg">
-              {user.displayName}
+              {user?.displayName}
             </h1>
             <>
               <div className="hs-dropdown relative inline-flex">
@@ -106,7 +111,7 @@ const User = () => {
             </div>
             <div className="flex items-center mt-4 text-gray-700">
               <MdMarkEmailRead />
-              <h1 className="px-2 text-sm">{user.email}</h1>
+              <h1 className="px-2 text-sm">{user?.email}</h1>
             </div>
           </div>
         </div>

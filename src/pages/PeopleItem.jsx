@@ -1,8 +1,10 @@
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, push, ref, set, onValue } from "firebase/database";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const PeopleItem = ({userData}) => {
   const db = getDatabase();
+  const [friendRequest, setFriendRequest] = useState([])
   const user = useSelector((state) => state.userSlice.user);
   const HandleRequest =((key, username)=>{
     set(push(ref(db, "FriendRequest/")), {
@@ -11,7 +13,20 @@ const PeopleItem = ({userData}) => {
       ReciverName: username,
       ReciverId: key
     })
-  })
+  }) 
+  
+  useEffect(() => {
+    const arr = []
+    const starCountRef = ref(db, "FriendRequest/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item)=>{
+          arr.push({...item.val(), key: item.key});
+      })
+      setFriendRequest(arr);
+    });
+  }, []);
+  console.log(friendRequest);
+
   return (
     <div className=" mx-6 mb-2 items-center flex">
       <img
