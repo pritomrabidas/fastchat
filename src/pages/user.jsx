@@ -10,15 +10,13 @@ import { getStorage, ref, uploadString } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { getDatabase, ref as dref, set } from "firebase/database";
-// import { useDispatch } from "react-redux";
-// import { loggeducer } from "../slice/userSlice";
 
 const User = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [image, setImage] = useState("");
-  // const disptch = useDispatch();
   const [cropData, setCropData] = useState("");
   const [enableEdit, setEnableEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
   const cropperRef = createRef();
   const storage = getStorage();
   const auth = getAuth();
@@ -49,21 +47,20 @@ const User = () => {
     setImage("");
   };
   const HandleUpload = () => {
+    setLoading(true);
     if (cropData) {
       const storageRef = ref(storage, user?.uid);
       uploadString(storageRef, cropData, "data_url").then(() => {
         getDownloadURL(storageRef).then((downloadURL) => {
           onAuthStateChanged(auth, () => {
             updateProfile(auth.currentUser, {
-              profile_picture: downloadURL,
+              photoURL: downloadURL,
             }).then(() => {
               set(dref(db, "users/" + user.uid), {
                 email: user.email,
                 profile_picture: downloadURL,
                 username: user.displayName,
               });
-              // localStorage.setItem("user", JSON.stringify(auth.currentUser));
-              // disptch(loggeducer(auth.currentUser));
               setEnableEdit(false);
               setCropData("");
               setImage("");
@@ -97,7 +94,7 @@ const User = () => {
                     onClick={() => setEnableEdit(true)}
                     className="flex items-center gap-x-3.5 py-2 px-2 ab rounded-lg text-sm text-gray-100 hover:bg-gray-900 focus:inline-none focus:bg-gray-100"
                     href="#"
-                    >
+                  >
                     Edit Profile
                   </p>
                 </div>
@@ -120,9 +117,17 @@ const User = () => {
         <div className=" w-96 h-96">
           {enableEdit && (
             <>
-              <label htmlFor="Profile" className=" bg-gray-600 px-4 py-2 text-white rounded-md">
+              <label
+                htmlFor="Profile"
+                className=" bg-gray-600 px-4 py-2 text-white rounded-md"
+              >
                 Chose your Profile Picture
-              <input type="file" id="Profile" className="hidden" onChange={onChange} />
+                <input
+                  type="file"
+                  id="Profile"
+                  className="hidden"
+                  onChange={onChange}
+                />
               </label>
               {image && (
                 <div className=" absolute left-0 top-0 w-full h-screen bg-[rgba(0,0,0,1)] border rounded flex">
@@ -144,15 +149,25 @@ const User = () => {
                       guides={true}
                     />
                     <div className="flex w-60 justify-center mx-auto">
-                      {
-                        cropData &&
-                        <button
-                        onClick={HandleUpload}
-                        className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
-                      >
-                        Save
-                      </button>
-                      }
+                      {cropData &&
+                        (loading ? (
+                          <button className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3">
+                            <div
+                              className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+                              role="status"
+                              aria-label="loading"
+                            >
+                              <span className="sr-only">Loading...</span>
+                            </div>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={HandleUpload}
+                            className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
+                          >
+                            Save
+                          </button>
+                        ))}
                       <button
                         className=" p-3 bg-slate-800 rounded-lg my-2 text-white mx-auto flex mt-3"
                         onClick={getCropData}
