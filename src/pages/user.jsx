@@ -1,7 +1,7 @@
 import { CiEdit } from "react-icons/ci";
 import { MdMarkEmailRead } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, createRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -10,6 +10,7 @@ import { getStorage, ref, uploadString } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { getDatabase, ref as dref, set } from "firebase/database";
+import { loggeducer } from "../slice/userSlice";
 
 const User = () => {
   const user = useSelector((state) => state.userSlice.user);
@@ -21,6 +22,7 @@ const User = () => {
   const storage = getStorage();
   const auth = getAuth();
   const db = getDatabase();
+  const disptch = useDispatch();
 
   const onChange = (e) => {
     e.preventDefault();
@@ -61,6 +63,8 @@ const User = () => {
                 profile_picture: downloadURL,
                 username: user.displayName,
               });
+              localStorage.setItem("user", JSON.stringify(auth.currentUser));
+              disptch(loggeducer(auth.currentUser));
               setEnableEdit(false);
               setCropData("");
               setImage("");

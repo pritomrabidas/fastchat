@@ -39,6 +39,7 @@ const FriendRequest = () => {
                 <RequestItem
                   key={item.key}
                   reqList={item}
+                  frReqId={reqId.key}
                 />
               )
           )

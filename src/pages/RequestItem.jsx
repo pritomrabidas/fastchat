@@ -1,13 +1,20 @@
-// import { getDatabase, push, ref, set, onValue } from "firebase/database";
-// import { useSelector } from "react-redux";
+import { getDatabase, push, ref, set } from "firebase/database";
+import { useSelector } from "react-redux";
 
 const RequestItem = ({ reqList }) => {
-  // const db = getDatabase();
+  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
 
   const HandleConfirm = (data) => {
-    // set(push(ref(db, "Friends/")), {
-    
-    // });
+    console.log(data);
+    set(push(ref(db, "Friends/")), {
+      friendId:data.key,
+      friendName: data.username,
+      friendProfile: data.profile_picture,
+      ReciverId: user.uid,
+      ReciverName: user.displayName,
+      ReciverProfile:user.photoURL
+    });
   };
   return (
     <div className=" mx-6 mb-2 items-center flex">

@@ -27,7 +27,6 @@ const PeopleItem = ({ userData }) => {
       setFriendRequest(arr);
     });
   }, [realtime]);
-  console.log(friendRequest);
 
   return (
     <div className=" mx-6 mb-2 items-center flex">
