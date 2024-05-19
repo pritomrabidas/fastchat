@@ -7,8 +7,8 @@ import { MdOutlineBlock } from "react-icons/md";
 import { IoChatboxOutline } from "react-icons/io5";
 const Navbar = () => {
   return (
-    <div className=" bg-gray-300 overflow-scroll mr-[1px] h-screen">
-      <div className=" w-[400px] p-5 ]">
+    <div className=" w-[350px] bg-gray-300 hover:overflow-scroll mr-[1px] h-screen">
+      <div className=" p-5">
         <div className=" mb-8">
           <img src="logo.png" alt="logo" />
         </div>

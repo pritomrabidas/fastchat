@@ -7,6 +7,7 @@ const PeopleItem = ({ userData }) => {
   const [friendRequest, setFriendRequest] = useState([]);
   const [realtime, setRealtime] = useState(false);
   const user = useSelector((state) => state.userSlice.user);
+
   const HandleRequest = (key, username) => {
     setRealtime(!realtime);
     set(push(ref(db, "FriendRequest/")), {
@@ -16,7 +17,6 @@ const PeopleItem = ({ userData }) => {
       ReciverId: key,
     });
   };
-
   useEffect(() => {
     const arr = [];
     const starCountRef = ref(db, "FriendRequest/");
