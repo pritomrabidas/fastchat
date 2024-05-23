@@ -50,8 +50,8 @@ const User = () => {
   };
   const HandleUpload = () => {
     setLoading(true);
+    const storageRef = ref(storage, user?.uid);
     if (cropData) {
-      const storageRef = ref(storage, user?.uid);
       uploadString(storageRef, cropData, "data_url").then(() => {
         getDownloadURL(storageRef).then((downloadURL) => {
           onAuthStateChanged(auth, () => {

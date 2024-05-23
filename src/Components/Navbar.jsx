@@ -51,6 +51,15 @@ const Navbar = () => {
           </li>
           <li className=" pl-6 pr-14 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
             <Link
+              to="/mygroup"
+              className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
+            >
+              <HiMiniUserGroup />
+              My Group
+            </Link>
+          </li>
+          <li className=" pl-6 pr-14 bg-slate-800 rounded-xl transition-colors hover:bg-gray-300 hover:text-black mb-3 w-fit">
+            <Link
               to="/group"
               className=" flex  gap-4 text-center items-center py-3 px-2 w-fit"
             >
