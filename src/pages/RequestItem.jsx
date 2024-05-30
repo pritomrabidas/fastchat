@@ -6,6 +6,7 @@ const RequestItem = ({reqList, frReqId} ) => {
   const user = useSelector((state) => state.userSlice.user);
 
   const HandleConfirm = (data, id) => {
+    console.log(id);
     set(push(ref(db, "Friends/")), {
       friendId: data.key,
       friendName: data.username,

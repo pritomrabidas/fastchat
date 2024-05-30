@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const PeopleItem = ({ userData }) => {
   const db = getDatabase();
+  const [friendList, setFriendList] = useState([]);
   const [friendRequest, setFriendRequest] = useState([]);
   const [realtime, setRealtime] = useState(false);
   const user = useSelector((state) => state.userSlice.user);
@@ -17,6 +18,7 @@ const PeopleItem = ({ userData }) => {
       ReciverId: key,
     });
   };
+
   useEffect(() => {
     const arr = [];
     const starCountRef = ref(db, "FriendRequest/");
@@ -25,6 +27,17 @@ const PeopleItem = ({ userData }) => {
         arr.push(item.val().SenderId + item.val().ReciverId);
       });
       setFriendRequest(arr);
+    });
+  }, [realtime]);
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "Friends/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val().friendId + item.val().ReciverId);
+      });
+      setFriendList(arr);
     });
   }, [realtime]);
 
@@ -40,6 +53,13 @@ const PeopleItem = ({ userData }) => {
         {friendRequest.includes(user.uid + userData.key) ? (
           <button className="mx-auto flex text-2xl mr-1 font-sans">
             Cancel Request
+          </button>
+        ) : friendRequest.includes(userData.key + user.uid) ? (
+          <button className="mx-auto flex text-2xl mr-1 font-sans">-</button>
+        ) : friendList.includes(userData.key + user?.uid) ||
+          friendList.includes(user?.uid + userData.key) ? (
+          <button className="mx-auto flex text-2xl mr-1 font-sans">
+            Friend
           </button>
         ) : (
           <button
