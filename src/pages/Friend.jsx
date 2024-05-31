@@ -31,7 +31,7 @@ const Friends = () => {
       });
       setFriendList(arr);
     });
-  });
+  },[]);
   return (
     <>
       <div className="w-full h-screen overflow-scroll bg-gray-300">

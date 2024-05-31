@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const PeopleItem = ({ userData }) => {
   const db = getDatabase();
   const [friendList, setFriendList] = useState([]);
+  const [blockList, setBlockList] = useState([]);
   const [friendRequest, setFriendRequest] = useState([]);
   const [realtime, setRealtime] = useState(false);
   const user = useSelector((state) => state.userSlice.user);
@@ -41,6 +42,17 @@ const PeopleItem = ({ userData }) => {
     });
   }, [realtime]);
 
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "Block/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        arr.push(item.val().blockbyId + item.val().blockId);
+      });
+      setBlockList(arr);
+    });
+  }, [realtime]);
+
   return (
     <div className=" mx-6 mb-2 items-center flex">
       <img
@@ -60,6 +72,11 @@ const PeopleItem = ({ userData }) => {
           friendList.includes(user?.uid + userData.key) ? (
           <button className="mx-auto flex text-2xl mr-1 font-sans">
             Friend
+          </button>
+        ) : blockList.includes(userData.key + user.uid) ||
+          blockList.includes(user.uid + userData.key) ? (
+          <button className="mx-auto flex text-2xl mr-1 font-sans">
+            Blocked
           </button>
         ) : (
           <button
