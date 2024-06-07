@@ -20,7 +20,6 @@ const RequestItem = ({reqList, frReqId} ) => {
 
   const handleCancl = (id) => {
     remove(ref(db, "FriendRequest/" + id));
-    console.log(id);
   };
   return (
     <div className=" mx-6 mb-2 items-center flex">

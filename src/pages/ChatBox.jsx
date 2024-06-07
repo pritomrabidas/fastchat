@@ -1,44 +1,49 @@
-import { MdOutlineEmojiEmotions } from "react-icons/md";
-import { RiGalleryFill } from "react-icons/ri";
-import { MdKeyboardVoice } from "react-icons/md";
-import { IoMdSend } from "react-icons/io";
+
+import ChatFriend from "./ChatFriend";
+import { getDatabase, onValue, ref } from "firebase/database";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import ChatApp from "./ChatApp";
+
+
 const ChatBox = () => {
+
+  const db = getDatabase();
+  const user = useSelector((state) => state.userSlice.user);
+  const [friendList, setFriendList] = useState([]);
+
+  useEffect(() => {
+    let arr = [];
+    const starCountRef = ref(db, "Friends/");
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        if (item.val().friendId == user.uid) {
+          arr.push({
+            friendID: item.val().ReciverId,
+            friendName: item.val().ReciverName,
+            friendImg: item.val().ReciverProfile,
+            key: item.key,
+          });
+        } else if (item.val().ReciverId == user.uid) {
+          arr.push({
+            friendID: item.val().friendId,
+            friendName: item.val().friendName,
+            friendImg: item.val().friendProfile,
+            key: item.key,
+          });
+        }
+      });
+      setFriendList(arr);
+    });
+  },[]);
   return (
-    <div className="chatBox">
-      <div className="p-2 gap-3 flex items-center border-b">
-        <div>
-          <img
-            src="pritom101.jpg"
-            alt="pritom"
-            className=" w-12 h-12 rounded-full"
-          />
-        </div>
-        <h2 className="font-medium text-2xl font-serif">Pritom Rabidas</h2>
-      </div>
-      <div className="messages-area">
-        <div className="message one"></div>
-        <div className="message two"></div>
-        <div className="message three"></div>
-        <div className="message four"></div>
-        <div className="message five"></div>
-        <div className="message six"></div>
-      </div>
-      <div className="sender-area">
-        <div className="input-place flex justify-between">
-          <input
-            placeholder="Send a message."
-            className="send-input"
-            type="text"
-          />
-          <div className="send mr-1 gap-2 flex">
-            <MdOutlineEmojiEmotions className="text-xl text-white" />
-            <RiGalleryFill className="text-xl text-white" />
-            <MdKeyboardVoice className=" text-xl text-white" />
-            <IoMdSend className="text-xl text-white" />
-          </div>
-        </div>
-      </div>
-      <div></div>
+    <div className="chatBox flex m-auto bg-slate-100">
+      {friendList.length > 0 ? (
+          friendList.map((item) => <ChatFriend key={item.key} data={item} />)
+        ) : (
+          <p className="text-center">No Friend Available</p>
+        )}
+    <ChatApp/>
     </div>
   );
 };

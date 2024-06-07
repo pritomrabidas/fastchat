@@ -15,6 +15,9 @@ const FriendItem = ({ data }) => {
       blockProfile: data.friendImg,
     });
     remove(ref(db , "Friends/" + data.key))
+    }
+    const HandleUnfriend = ()=>{
+      remove(ref(db , "Friends/" + data.key))
   }
   return (
     <div className=" mx-6 mb-2 items-center flex">
@@ -25,7 +28,7 @@ const FriendItem = ({ data }) => {
       />
       <p className=" font-medium text-2xl">{data?.friendName}</p>
       <p className="mx-auto flex text-2xl mr-1 gap-2">
-        <button  className="font-normal text-lg py-1 px-3 rounded font-mono text-black bg-red-500 hover:text-white">
+        <button onClick={()=>HandleUnfriend(data)} className="font-normal text-lg py-1 px-3 rounded font-mono text-black bg-red-500 hover:text-white">
           Unfreind
         </button>
         <button onClick={()=>HandleBlock(data)} className="font-normal text-lg py-1 px-3 rounded font-mono text-black hover:bg-red-500 hover:text-white">

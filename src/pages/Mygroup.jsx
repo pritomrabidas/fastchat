@@ -98,7 +98,7 @@ const Mygroup = () => {
         ?
         groupList.map((item)=>(
           
-          <GroupItem key={item.key} data={item} />
+          <GroupItem key={item.key} data={item} mygroup={true} />
         ))
         :<p className="text-center text-black overflow-hidden">No Mygroup List Avaiable</p>
       }

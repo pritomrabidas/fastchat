@@ -4,6 +4,7 @@ const Chat = () => {
   console.log(userfromlocal);
   return (
     <div className=" h-screen overflow-scroll w-full">
+      <div className="w-1/4"></div>
       <Title heading="Chats" />
     </div>
   )
