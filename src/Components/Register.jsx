@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {getAuth,createUserWithEmailAndPassword,sendEmailVerification,updateProfile,} from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   // let re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  const user = useSelector((state) => state.userSlice.user);
   const auth = getAuth();
   const navigate = useNavigate();
   let [firstName, setFirstName] = useState("");
@@ -83,7 +85,11 @@ const Register = () => {
         });
     }
   };
-
+  useEffect(() => {
+    if (user) {
+      return navigate("/");
+    }
+  }, []);
   return (
     <div className="flex py-4 bg-gray-300 h-screen pt-24" >
       <div className=" w-1/2 ">

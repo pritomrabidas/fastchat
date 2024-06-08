@@ -1,4 +1,4 @@
-
+import Title from "./Title";
 import ChatFriend from "./ChatFriend";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useSelector } from "react-redux";
@@ -38,11 +38,14 @@ const ChatBox = () => {
   },[]);
   return (
     <div className="chatBox flex m-auto bg-slate-100">
+      <div className=" bg-gray-300">
+      <Title heading="Friends" />
       {friendList.length > 0 ? (
           friendList.map((item) => <ChatFriend key={item.key} data={item} />)
         ) : (
           <p className="text-center">No Friend Available</p>
         )}
+      </div>
     <ChatApp/>
     </div>
   );

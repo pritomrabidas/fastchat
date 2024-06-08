@@ -1,15 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEyeSlash } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa6";
 import { getDatabase, ref, set } from "firebase/database";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loggeducer } from "../slice/userSlice";
 
 const SignIn = () => {
+  const user = useSelector((state) => state.userSlice.user);
   const auth = getAuth();
   const disptch = useDispatch();
   const [emailErr, setEmailErr] = useState("");
@@ -114,6 +115,11 @@ const SignIn = () => {
         console.log(errorMessage);
       });
   };
+  useEffect(() => {
+    if (user) {
+      return navigate("/");
+    }
+  }, []);
   return (
     <div className="bg-gray-300 py-2 h-screen pt-12">
       <div className="form-container w-[600px] justify-center mx-auto  ">
